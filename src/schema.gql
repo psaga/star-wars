@@ -1,0 +1,124 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Coordinates {
+  lat: Float!
+  lon: Float!
+}
+
+type Planet {
+  id: String!
+  name: String!
+  population: Float!
+  climate: String!
+  terrain: String!
+  currentLocation: Coordinates!
+  characters: [Character!]
+}
+
+type Starship {
+  id: String!
+  name: String!
+  model: String!
+  capacity: Float!
+  currentLocation: Coordinates!
+  passangers: [Character!]
+  enemies: [Starship!]
+}
+
+type Character {
+  id: String!
+  name: String!
+  species: String!
+  forceSensitive: Boolean!
+  currentLocation: Planet!
+  starship: Starship
+}
+
+type Query {
+  character(id: String!): Character!
+  starship(id: String!): Starship!
+  distanceToPlanet(id: String!, planetId: String!): Float!
+  nearbyEnemies(id: String!, rangeKm: Float!): [Starship!]!
+  planet(id: String!): Planet!
+}
+
+type Mutation {
+  createCharacter(createCharacterInput: CreateCharacterInput!): Character!
+  updateCharacter(id: String!, updateCharacterInput: UpdateCharacterInput!): Boolean!
+  relocateCharacter(id: String!, relocateCharacterInput: RelocateCharacterInput!): Boolean!
+  deleteCharacter(id: String!): Boolean!
+  boarding(id: String!, boardingCharacterInput: BoardingCharacterInput!): Boolean!
+  disembarking(id: String!, boardingCharacterInput: BoardingCharacterInput!): Boolean!
+  createStarship(createStarshipInput: CreateStarshipInput!): Starship!
+  updateStarship(id: String!, updateStarshipInput: UpdateStarshipInput!): Boolean!
+  deleteStarship(id: String!): Boolean!
+  spawnEnemies(id: String!): [Starship!]!
+  travelTo(id: String!, travellingStarshipInput: TravellingStarshipInput!): Boolean!
+  createPlanet(createPlanetInput: CreatePlanetInput!): Planet!
+  updatePlanet(id: String!, updatePlanetInput: UpdatePlanetInput!): Boolean!
+  deletePlanet(id: String!): Boolean!
+}
+
+input CreateCharacterInput {
+  name: String!
+  species: String!
+  forceSensitive: Boolean!
+  currentLocation: String!
+}
+
+input UpdateCharacterInput {
+  name: String
+  species: String
+  forceSensitive: Boolean
+  starship: String
+}
+
+input RelocateCharacterInput {
+  relocatedLocation: String!
+}
+
+input BoardingCharacterInput {
+  starshipId: String!
+}
+
+input CreateStarshipInput {
+  name: String!
+  model: String!
+  capacity: Float!
+  currentLocation: CoordinatesInput!
+  enemies: [String!]!
+}
+
+input CoordinatesInput {
+  lat: Float!
+  lon: Float!
+}
+
+input UpdateStarshipInput {
+  name: String
+  model: String
+  capacity: Float
+  currentLocation: CoordinatesInput
+}
+
+input TravellingStarshipInput {
+  planetId: String!
+}
+
+input CreatePlanetInput {
+  name: String!
+  population: Float!
+  climate: String!
+  terrain: String!
+  currentLocation: CoordinatesInput!
+}
+
+input UpdatePlanetInput {
+  name: String
+  population: Float
+  climate: String
+  terrain: String
+  currentLocation: CoordinatesInput
+}
